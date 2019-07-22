@@ -47,7 +47,7 @@ def convert_seconds_to_hms(secs):
 def start_new_timer(timers, target):
     timers[target][0] = time.time()
     write_config(timers)
-    main_win.refresh()
+    # main_win.refresh()
 
 def get_timer_stats(timers, target, offset):
     curr_time = time.time()
@@ -63,7 +63,7 @@ class MainWindow():
         self.main_win = QMainWindow()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self.main_win)
-        self.main_win.setWindowTitle("QtGTATimer")
+        # self.main_win.setWindowTitle("QtGTATimer")
 
         timers = load_config()
 
@@ -78,6 +78,11 @@ class MainWindow():
         self.ui.pushMeth.clicked.connect(lambda: start_new_timer(timers, "meth"))
         self.ui.pushCash.clicked.connect(lambda: start_new_timer(timers, "cash"))
         self.ui.actionQuit.triggered.connect(lambda: self.clicked_quit(timers))
+        self.ui.actionNightclub.triggered.connect(lambda: self.reset_timer(timers, "nightclub"))
+        self.ui.actionBunker.triggered.connect(lambda: self.reset_timer(timers, "bunker"))
+        self.ui.actionCoke.triggered.connect(lambda: self.reset_timer(timers, "coke"))
+        self.ui.actionMeth.triggered.connect(lambda: self.reset_timer(timers, "meth"))
+        self.ui.actionCash.triggered.connect(lambda: self.reset_timer(timers, "cash"))
         self.ui.actionReset_All_Timers.triggered.connect(lambda: self.reset_timers(timers))
 
     def show(self):
@@ -92,6 +97,11 @@ class MainWindow():
             timers[each][0] = new_time
         write_config(timers)
 
+    def reset_timer(self, timers, target):
+        new_time = 0
+        timers[target][0] = new_time
+        write_config(timers)
+
 
     def refresh(self):
 
@@ -102,36 +112,84 @@ class MainWindow():
         self.ui.labelNightclubStart.setText(convert_epoch_to_string(start_time))
         self.ui.labelNightclubEnd.setText(convert_epoch_to_string(end_time))
         self.ui.labelNightclubRem.setText(convert_seconds_to_hms(rem_time))
-        self.ui.progressNightclub.setValue(perc_time)
+        if perc_time > 0 < 100:
+            self.ui.progressNightclub.setValue(perc_time)
+            self.ui.labelNightclubVal.setText(str(int(perc_time) * 9100))
+        elif perc_time >= 100:
+            perc_time = 100
+            self.ui.progressNightclub.setValue(perc_time)
+            self.ui.labelNightclubVal.setText("???")
+        if timers['nightclub'][0] == 0:
+            perc_time = 0
+            self.ui.progressBunker.setValue(perc_time)
+            self.ui.labelBunkerVal.setText("NotOp")
 
         # Set Bunker Information
         start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "bunker", 8400)
         self.ui.labelBunkerStart.setText(convert_epoch_to_string(start_time))
         self.ui.labelBunkerEnd.setText(convert_epoch_to_string(end_time))
         self.ui.labelBunkerRem.setText(convert_seconds_to_hms(rem_time))
-        self.ui.progressBunker.setValue(perc_time)
+        if 0 < perc_time < 100:
+            self.ui.progressBunker.setValue(perc_time)
+            strval = str(int(perc_time) * (210000 / 100)).split(".")
+            self.ui.labelBunkerVal.setText(strval[0])
+        elif perc_time >= 100:
+            perc_time = 100
+            self.ui.progressBunker.setValue(perc_time)
+            self.ui.labelBunkerVal.setText("210000")
+        if timers['bunker'][0] == 0:
+            perc_time = 0
+            self.ui.progressBunker.setValue(perc_time)
+            self.ui.labelBunkerVal.setText("NotOp")
 
         # Set Coke Lockup Information
         start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "coke", 7200)
         self.ui.labelCokeStart.setText(convert_epoch_to_string(start_time))
         self.ui.labelCokeEnd.setText(convert_epoch_to_string(end_time))
         self.ui.labelCokeRem.setText(convert_seconds_to_hms(rem_time))
-        self.ui.progressCoke.setValue(perc_time)
+        print(timers['coke'][0])
+        if 0 < perc_time < 100:
+            self.ui.progressCoke.setValue(perc_time)
+        if perc_time >= 100:
+            perc_time = 100
+            self.ui.progressCoke.setValue(perc_time)
+            self.ui.labelCokeVal.setText(str((1680 / 100) * int(perc_time)))
+        if timers['coke'][0] == 0:
+            perc_time = 0
+            self.ui.progressCoke.setValue(perc_time)
+            self.ui.labelCokeVal.setText("NotOp")
 
         # Set Meth Lab Information
         start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "meth", 8640)
         self.ui.labelMethStart.setText(convert_epoch_to_string(start_time))
         self.ui.labelMethEnd.setText(convert_epoch_to_string(end_time))
         self.ui.labelMethRem.setText(convert_seconds_to_hms(rem_time))
-        self.ui.progressMeth.setValue(perc_time)
+        if 0 < perc_time < 100:
+            self.ui.progressMeth.setValue(perc_time)
+        if perc_time >= 100:
+            perc_time = 100
+            self.ui.progressMeth.setValue(perc_time)
+            self.ui.labelMethVal.setText(str((1680 / 100) * int(perc_time)))
+        if timers['meth'][0] == 0:
+            perc_time = 0
+            self.ui.progressMeth.setValue(perc_time)
+            self.ui.labelMethVal.setText("NotOp")
 
         # Set Cash Factory Information
         start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "cash", 9600)
         self.ui.labelCashStart.setText(convert_epoch_to_string(start_time))
         self.ui.labelCashEnd.setText(convert_epoch_to_string(end_time))
         self.ui.labelCashRem.setText(convert_seconds_to_hms(rem_time))
-        self.ui.progressCash.setValue(perc_time)
-
+        if 0 < perc_time < 100:
+            self.ui.progressCash.setValue(perc_time)
+        if perc_time >= 100:
+            perc_time = 100
+            self.ui.progressCash.setValue(perc_time)
+            self.ui.labelCashVal.setText(str((1680 / 100) * int(perc_time)))
+        if timers['cash'][0] == 0:
+            perc_time = 0
+            self.ui.progressCash.setValue(perc_time)
+            self.ui.labelCashVal.setText("NotOp")
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
