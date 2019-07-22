@@ -108,87 +108,104 @@ class MainWindow():
         timers = load_config()
 
         # Set Nightclub Information
-        start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "nightclub", 72000)
-        self.ui.labelNightclubStart.setText(convert_epoch_to_string(start_time))
-        self.ui.labelNightclubEnd.setText(convert_epoch_to_string(end_time))
-        self.ui.labelNightclubRem.setText(convert_seconds_to_hms(rem_time))
-        if perc_time > 0 < 100:
-            self.ui.progressNightclub.setValue(perc_time)
-            self.ui.labelNightclubVal.setText(str(int(perc_time) * 9100))
-        elif perc_time >= 100:
-            perc_time = 100
-            self.ui.progressNightclub.setValue(perc_time)
-            self.ui.labelNightclubVal.setText("???")
         if timers['nightclub'][0] == 0:
-            perc_time = 0
-            self.ui.progressBunker.setValue(perc_time)
+            self.ui.labelNightclubStart.setText("00:00:00")
+            self.ui.labelNightclubEnd.setText("00:00:00")
+            self.ui.labelNightclubRem.setText("00:00:00")
+            self.ui.progressBunker.setValue(0)
             self.ui.labelBunkerVal.setText("NotOp")
+        else:
+            start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "nightclub", 72000)
+            self.ui.labelNightclubStart.setText(convert_epoch_to_string(start_time))
+            self.ui.labelNightclubEnd.setText(convert_epoch_to_string(end_time))
+            self.ui.labelNightclubRem.setText(convert_seconds_to_hms(rem_time))
+            if perc_time > 0 < 100:
+                self.ui.progressNightclub.setValue(perc_time)
+                self.ui.labelNightclubVal.setText(str(int(perc_time) * 9600))
+            elif perc_time >= 100 and timers['nightclub'][0] != 0:
+                perc_time = 100
+                self.ui.progressNightclub.setValue(perc_time)
+                self.ui.labelNightclubVal.setText("???")
 
         # Set Bunker Information
-        start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "bunker", 8400)
-        self.ui.labelBunkerStart.setText(convert_epoch_to_string(start_time))
-        self.ui.labelBunkerEnd.setText(convert_epoch_to_string(end_time))
-        self.ui.labelBunkerRem.setText(convert_seconds_to_hms(rem_time))
-        if 0 < perc_time < 100:
-            self.ui.progressBunker.setValue(perc_time)
-            strval = str(int(perc_time) * (210000 / 100)).split(".")
-            self.ui.labelBunkerVal.setText(strval[0])
-        elif perc_time >= 100:
-            perc_time = 100
-            self.ui.progressBunker.setValue(perc_time)
-            self.ui.labelBunkerVal.setText("210000")
         if timers['bunker'][0] == 0:
-            perc_time = 0
-            self.ui.progressBunker.setValue(perc_time)
+            self.ui.labelBunkerStart.setText("00:00:00")
+            self.ui.labelBunkerEnd.setText("00:00:00")
+            self.ui.labelBunkerRem.setText("00:00:00")
+            self.ui.progressBunker.setValue(0)
             self.ui.labelBunkerVal.setText("NotOp")
+        else:
+            start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "bunker", 8400)
+            self.ui.labelBunkerStart.setText(convert_epoch_to_string(start_time))
+            self.ui.labelBunkerEnd.setText(convert_epoch_to_string(end_time))
+            self.ui.labelBunkerRem.setText(convert_seconds_to_hms(rem_time))
+            if 0 < perc_time < 100:
+                self.ui.progressBunker.setValue(perc_time)
+                strval = str(int(perc_time) * (210000 / 100)).split(".")
+                self.ui.labelBunkerVal.setText(strval[0])
+            elif perc_time >= 100 and timers['bunker'][0] != 0:
+                perc_time = 100
+                self.ui.progressBunker.setValue(perc_time)
+                self.ui.labelBunkerVal.setText("210000")
 
         # Set Coke Lockup Information
-        start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "coke", 7200)
-        self.ui.labelCokeStart.setText(convert_epoch_to_string(start_time))
-        self.ui.labelCokeEnd.setText(convert_epoch_to_string(end_time))
-        self.ui.labelCokeRem.setText(convert_seconds_to_hms(rem_time))
-        if 0 < perc_time < 100:
-            self.ui.progressCoke.setValue(perc_time)
-        if perc_time >= 100:
-            perc_time = 100
-            self.ui.progressCoke.setValue(perc_time)
-            self.ui.labelCokeVal.setText(str((1680 / 100) * int(perc_time)))
         if timers['coke'][0] == 0:
-            perc_time = 0
-            self.ui.progressCoke.setValue(perc_time)
+            self.ui.labelCokeStart.setText("00:00:00")
+            self.ui.labelCokeEnd.setText("00:00:00")
+            self.ui.labelCokeRem.setText("00:00:00")
+            self.ui.progressCoke.setValue(0)
             self.ui.labelCokeVal.setText("NotOp")
+        else:
+            start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "coke", 7200)
+            self.ui.labelCokeStart.setText(convert_epoch_to_string(start_time))
+            self.ui.labelCokeEnd.setText(convert_epoch_to_string(end_time))
+            self.ui.labelCokeRem.setText(convert_seconds_to_hms(rem_time))
+            if 0 < perc_time < 100:
+                self.ui.progressCoke.setValue(perc_time)
+            if perc_time >= 100 and timers['coke'][0] != 0:
+                perc_time = 100
+                self.ui.progressCoke.setValue(perc_time)
+                self.ui.labelCokeVal.setText(str((1680 / 100) * int(perc_time)))
+
 
         # Set Meth Lab Information
-        start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "meth", 8640)
-        self.ui.labelMethStart.setText(convert_epoch_to_string(start_time))
-        self.ui.labelMethEnd.setText(convert_epoch_to_string(end_time))
-        self.ui.labelMethRem.setText(convert_seconds_to_hms(rem_time))
-        if 0 < perc_time < 100:
-            self.ui.progressMeth.setValue(perc_time)
-        if perc_time >= 100:
-            perc_time = 100
-            self.ui.progressMeth.setValue(perc_time)
-            self.ui.labelMethVal.setText(str((1680 / 100) * int(perc_time)))
         if timers['meth'][0] == 0:
-            perc_time = 0
-            self.ui.progressMeth.setValue(perc_time)
+            self.ui.labelMethStart.setText("00:00:00")
+            self.ui.labelMethEnd.setText("00:00:00")
+            self.ui.labelMethRem.setText("00:00:00")
+            self.ui.progressMeth.setValue(0)
             self.ui.labelMethVal.setText("NotOp")
+        else:
+            start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "meth", 8640)
+            self.ui.labelMethStart.setText(convert_epoch_to_string(start_time))
+            self.ui.labelMethEnd.setText(convert_epoch_to_string(end_time))
+            self.ui.labelMethRem.setText(convert_seconds_to_hms(rem_time))
+            if 0 < perc_time < 100:
+                self.ui.progressMeth.setValue(perc_time)
+            if perc_time >= 100 and timers['meth'][0] != 0:
+                perc_time = 100
+                self.ui.progressMeth.setValue(perc_time)
+                self.ui.labelMethVal.setText(str((1680 / 100) * int(perc_time)))
 
         # Set Cash Factory Information
-        start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "cash", 9600)
-        self.ui.labelCashStart.setText(convert_epoch_to_string(start_time))
-        self.ui.labelCashEnd.setText(convert_epoch_to_string(end_time))
-        self.ui.labelCashRem.setText(convert_seconds_to_hms(rem_time))
-        if 0 < perc_time < 100:
-            self.ui.progressCash.setValue(perc_time)
-        if perc_time >= 100:
-            perc_time = 100
-            self.ui.progressCash.setValue(perc_time)
-            self.ui.labelCashVal.setText(str((1680 / 100) * int(perc_time)))
         if timers['cash'][0] == 0:
-            perc_time = 0
-            self.ui.progressCash.setValue(perc_time)
+            self.ui.labelCashStart.setText("00:00:00")
+            self.ui.labelCashEnd.setText("00:00:00")
+            self.ui.labelCashRem.setText("00:00:00")
+            self.ui.progressCash.setValue(0)
             self.ui.labelCashVal.setText("NotOp")
+        else:
+            start_time, end_time, rem_time, perc_time = get_timer_stats(timers, "cash", 9600)
+            self.ui.labelCashStart.setText(convert_epoch_to_string(start_time))
+            self.ui.labelCashEnd.setText(convert_epoch_to_string(end_time))
+            self.ui.labelCashRem.setText(convert_seconds_to_hms(rem_time))
+            if 0 < perc_time < 100:
+                self.ui.progressCash.setValue(perc_time)
+            if perc_time >= 100 and timers['cash'][0] != 0:
+                perc_time = 100
+                self.ui.progressCash.setValue(perc_time)
+                self.ui.labelCashVal.setText(str((1680 / 100) * int(perc_time)))
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
