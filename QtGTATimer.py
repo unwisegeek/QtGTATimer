@@ -40,8 +40,9 @@ def convert_epoch_to_string(secs):
     return retval
 
 def convert_seconds_to_hms(secs):
-    remaining = str(timedelta(seconds=secs))
-    return remaining[:8]
+    remaining = str(timedelta(seconds=secs)).split(":")
+    retval: str = "{}:{}:{}".format(remaining[0].zfill(2), remaining[1].zfill(2), remaining[2].zfill(2))
+    return retval[:8]
 
 def start_new_timer(timers, target):
     timers[target][0] = time.time()
@@ -77,12 +78,20 @@ class MainWindow():
         self.ui.pushMeth.clicked.connect(lambda: start_new_timer(timers, "meth"))
         self.ui.pushCash.clicked.connect(lambda: start_new_timer(timers, "cash"))
         self.ui.actionQuit.triggered.connect(lambda: self.clicked_quit(timers))
+        self.ui.actionReset_All_Timers.triggered.connect(lambda: self.reset_timers(timers))
 
     def show(self):
         self.main_win.show()
 
     def clicked_quit(self, timers):
         os.sys.exit(0)
+
+    def reset_timers(self, timers):
+        new_time = time.time() - 72000
+        for each in ["nightclub","bunker","coke","meth","cash"]:
+            timers[each][0] = new_time
+        write_config(timers)
+
 
     def refresh(self):
 

@@ -133,7 +133,7 @@ class Ui_MainWindow(object):
         self.labelNightclubEnd.setText(_translate("MainWindow", "TextLabel"))
         self.labelNightclubRem.setText(_translate("MainWindow", "TextLabel"))
         self.labelHeadingStart.setText(_translate("MainWindow", "Start Time"))
-        self.labelHeadingRem.setText(_translate("MainWindow", "Time Remaining"))
+        self.labelHeadingRem.setText(_translate("MainWindow", "Countdown"))
         self.labelHeadingEnd.setText(_translate("MainWindow", "End Time"))
         self.pushBunker.setText(_translate("MainWindow", "Bunker"))
         self.labelBunkerStart.setText(_translate("MainWindow", "TextLabel"))
