@@ -147,7 +147,6 @@ class MainWindow():
         self.ui.labelCokeStart.setText(convert_epoch_to_string(start_time))
         self.ui.labelCokeEnd.setText(convert_epoch_to_string(end_time))
         self.ui.labelCokeRem.setText(convert_seconds_to_hms(rem_time))
-        print(timers['coke'][0])
         if 0 < perc_time < 100:
             self.ui.progressCoke.setValue(perc_time)
         if perc_time >= 100:
