@@ -109,9 +109,9 @@ class MainWindow():
 
         # Set Nightclub Information
         if timers['nightclub'][0] == 0:
-            self.ui.labelNightclubStart.setText("00:00:00")
-            self.ui.labelNightclubEnd.setText("00:00:00")
-            self.ui.labelNightclubRem.setText("00:00:00")
+            self.ui.labelNightclubStart.setText("--:--:--")
+            self.ui.labelNightclubEnd.setText("--:--:--")
+            self.ui.labelNightclubRem.setText("--:--:--")
             self.ui.progressBunker.setValue(0)
             self.ui.labelBunkerVal.setText("NotOp")
         else:
@@ -129,9 +129,9 @@ class MainWindow():
 
         # Set Bunker Information
         if timers['bunker'][0] == 0:
-            self.ui.labelBunkerStart.setText("00:00:00")
-            self.ui.labelBunkerEnd.setText("00:00:00")
-            self.ui.labelBunkerRem.setText("00:00:00")
+            self.ui.labelBunkerStart.setText("--:--:--")
+            self.ui.labelBunkerEnd.setText("--:--:--")
+            self.ui.labelBunkerRem.setText("--:--:--")
             self.ui.progressBunker.setValue(0)
             self.ui.labelBunkerVal.setText("NotOp")
         else:
@@ -150,9 +150,9 @@ class MainWindow():
 
         # Set Coke Lockup Information
         if timers['coke'][0] == 0:
-            self.ui.labelCokeStart.setText("00:00:00")
-            self.ui.labelCokeEnd.setText("00:00:00")
-            self.ui.labelCokeRem.setText("00:00:00")
+            self.ui.labelCokeStart.setText("--:--:--")
+            self.ui.labelCokeEnd.setText("--:--:--")
+            self.ui.labelCokeRem.setText("--:--:--")
             self.ui.progressCoke.setValue(0)
             self.ui.labelCokeVal.setText("NotOp")
         else:
@@ -170,9 +170,9 @@ class MainWindow():
 
         # Set Meth Lab Information
         if timers['meth'][0] == 0:
-            self.ui.labelMethStart.setText("00:00:00")
-            self.ui.labelMethEnd.setText("00:00:00")
-            self.ui.labelMethRem.setText("00:00:00")
+            self.ui.labelMethStart.setText("--:--:--")
+            self.ui.labelMethEnd.setText("--:--:--")
+            self.ui.labelMethRem.setText("--:--:--")
             self.ui.progressMeth.setValue(0)
             self.ui.labelMethVal.setText("NotOp")
         else:
@@ -189,9 +189,9 @@ class MainWindow():
 
         # Set Cash Factory Information
         if timers['cash'][0] == 0:
-            self.ui.labelCashStart.setText("00:00:00")
-            self.ui.labelCashEnd.setText("00:00:00")
-            self.ui.labelCashRem.setText("00:00:00")
+            self.ui.labelCashStart.setText("--:--:--")
+            self.ui.labelCashEnd.setText("--:--:--")
+            self.ui.labelCashRem.setText("--:--:--")
             self.ui.progressCash.setValue(0)
             self.ui.labelCashVal.setText("NotOp")
         else:
